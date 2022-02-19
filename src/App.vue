@@ -5,7 +5,7 @@
     <h2 id="list-summary">{{listSummary}}</h2>
     <ul aria-labelledby="list-summary" class="stack-large">
       <li v-for="item in MockTodoItems" :key="item.id">
-        <to-do-item :label="item.label" :done="item.done" :id="item.id"></to-do-item>
+        <to-do-item :label="item.label" :done="item.done" :id="item.id" @checkbox-changed="updateDoneStatus(item.id)"></to-do-item>
       </li>
     </ul>
   </div>
@@ -36,6 +36,10 @@ export default {
   methods: {
     addToDo(toDoLabel){
       this.MockTodoItems.push({id:uniqueId('todo-'), label: toDoLabel, done: false});
+    },
+    updateDoneStatus(toDoId){
+      const toDoUpdate = this.MockTodoItems.find(item => item.id === toDoId)
+      toDoUpdate.done = !toDoUpdate.done;
     }
   },
   computed: {
