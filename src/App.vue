@@ -1,17 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>To Do List</h1>
+    <ul>
+      <li v-for="item in MockTodoItems" :key="item.id">
+        <to-do-item :label="item.label" :done="item.done"></to-do-item>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import uniqueId from 'lodash.uniqueid';
+import ToDoItem from "./components/ToDoItem.vue"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ToDoItem,
+  },
+  data() {
+    return {
+      MockTodoItems: [
+        { id: uniqueId('todo-'), label: 'Finish this project', done:false},
+        { id: uniqueId('todo-'), label: 'Create a Vue project using CLI', done:true},
+        { id: uniqueId('todo-'), label: 'Learn to use the keyboard without looking', done:false},
+        { id: uniqueId('todo-'), label: 'Have fun', done:false},
+      ]
+    }
   }
 }
 </script>
