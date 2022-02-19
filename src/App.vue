@@ -3,7 +3,7 @@
     <h1>To Do List</h1>
     <ul>
       <li v-for="item in MockTodoItems" :key="item.id">
-        <to-do-item :label="item.label" :done="item.done"></to-do-item>
+        <to-do-item :label="item.label" :done="item.done" :id="item.id"></to-do-item>
       </li>
     </ul>
   </div>
