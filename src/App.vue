@@ -2,7 +2,7 @@
   <div id="app">
     <h1>To Do List</h1>
     <to-do-form @todo-added="addToDo"></to-do-form>
-    <h2 id="list-summary">{{listSummary}}</h2>
+    <h2 id="list-summary" ref="listSummary" tabindex="-1">{{listSummary}}</h2>
     <ul aria-labelledby="list-summary" class="stack-large">
       <li v-for="item in MockTodoItems" :key="item.id">
         <to-do-item :label="item.label" :done="item.done" :id="item.id" @checkbox-changed="updateDoneStatus(item.id)" @item-deleted="deleteToDo(item.id)" @item-edited="editToDo(item.id, $event)"></to-do-item>
@@ -26,10 +26,6 @@ export default {
   data() {
     return {
       MockTodoItems: [
-        { id: uniqueId('todo-'), label: 'Finish this project', done:false},
-        { id: uniqueId('todo-'), label: 'Create a Vue project using CLI', done:true},
-        { id: uniqueId('todo-'), label: 'Learn to use the keyboard without looking', done:false},
-        { id: uniqueId('todo-'), label: 'Have fun', done:false},
       ]
     };
   },
@@ -44,6 +40,7 @@ export default {
     deleteToDo(toDoId) {
       const itemIndex = this.MockTodoItems.find(item => item.id === toDoId);
       this.MockTodoItems.splice(itemIndex, 1);
+      this.$refs.listSummary.focus();
     },
     editToDo(toDoId, newLabel) {
       const toDoEdit = this.MockTodoItems.find(item => item.id === toDoId);
